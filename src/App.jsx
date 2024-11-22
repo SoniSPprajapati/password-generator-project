@@ -36,18 +36,49 @@ function App() {
         <input
           type="text"
           value={password}
-          className="outline-none w-full py-1 px-3"
-          placeholder="Password"
+          className="outline-none w-full py-1 px-3 "
+          placeholder="password"
           readOnly
         />
-        <button className="outline-none bg-blue-600 text-white px-3 py-0.5 shrink-0">
+        <button className="outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0">
           Copy
         </button>
       </div>
-      <div className="flex text-sm gap-x-2">
-        <div className="flex item-center gap-y-1">
-          <input type="range" min={6} max={100} value={lenght} className="cursor-pointer onclick/>"
-          <label>Lenght: {lenght}</label>
+      <div className="flex flex-sm gap-x-2">
+        <div className="flex items-center gap-x-1">
+          <input
+            type="range"
+            min={6}
+            max={100}
+            value={lenght}
+            className="cursor-pointer"
+            onChange={(e) => {
+              setLenght(e.target.value);
+            }}
+          />
+          <label>lenght: {lenght}</label>
+        </div>
+        <div className="flex items-center gap-x-1">
+          <input
+            type="checkbox"
+            defaultChecked={numAllowed}
+            id="numberInput"
+            onChange={() => {
+              setNumberAllowed((prev) => !prev);
+            }}
+          />
+          <label htmlFor="numberInput">Numbers</label>
+        </div>
+        <div className="flex items-center gap-x-1">
+          <input
+            type="checkbox"
+            defaultChecked={charAllowed}
+            id="charcterInput"
+            onChange={() => {
+              setCharAllowed((prev) => !prev);
+            }}
+          />
+          <label htmlFor="charcterInput">Charcters</label>
         </div>
       </div>
     </div>
