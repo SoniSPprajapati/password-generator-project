@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 
 function App() {
-  const [lenght, setLenght] = useState(8);
+  const [length, setLength] = useState(8);
   const [numAllowed, setNumberAllowed] = useState(false);
   const [charAllowed, setCharAllowed] = useState(false);
   const [password, setPassword] = useState("");
@@ -15,7 +15,7 @@ function App() {
     let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     if (numAllowed) str += "0123456789";
-    if (charAllowed) str += "!@%&*${}?+-_~`";
+    if (charAllowed) str += "!@%$^&*-_+=[]{}~`";
 
     for (let i = 1; i <= length; i++) {
       let char = Math.floor(Math.random() * str.length + 1);
@@ -23,15 +23,20 @@ function App() {
     }
 
     setPassword(pass);
-  }, [lenght, numAllowed, charAllowed, setPassword]);
+  }, [length, numAllowed, charAllowed, setPassword]);
+
+  const copyPassword = useCallback(() => {
+    passwordRef.current?.select()
+    window.navigator.clipboard.writeText(password);
+  }, [password]);
 
   useEffect(() => {
     passwordGenerator();
-  }, [lenght, numAllowed, charAllowed, passwordGenerator]);
+  }, [length, numAllowed, charAllowed, passwordGenerator]);
 
   return (
-    <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 my-8 text-orange-500 bg-grey-800">
-      <h1 className="text-white text-center my-4">Password Generator</h1>
+    <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 my-8 text-orange-500 bg-blue-800">
+      <h1 className="text-white text-center my-4 py-3">Password Generator</h1>
       <div className='className = "flex shadow rounded-lg overflow-hidden mb-4"'>
         <input
           type="text"
@@ -39,8 +44,12 @@ function App() {
           className="outline-none w-full py-1 px-3 "
           placeholder="password"
           readOnly
+          ref={passwordRef}
         />
-        <button className="outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0">
+        <button
+          onClick={copyPassword}
+          className="outline-none bg-pink-700 text-white px-3 py-0.5 shrink-0"
+        >
           Copy
         </button>
       </div>
@@ -50,13 +59,13 @@ function App() {
             type="range"
             min={6}
             max={100}
-            value={lenght}
+            value={length}
             className="cursor-pointer"
             onChange={(e) => {
-              setLenght(e.target.value);
+              setLength(e.target.value);
             }}
           />
-          <label>lenght: {lenght}</label>
+          <label>length: {length}</label>
         </div>
         <div className="flex items-center gap-x-1">
           <input
