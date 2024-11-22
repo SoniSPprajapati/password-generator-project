@@ -26,7 +26,7 @@ function App() {
   }, [length, numAllowed, charAllowed, setPassword]);
 
   const copyPassword = useCallback(() => {
-    passwordRef.current?.select()
+    passwordRef.current?.select();
     window.navigator.clipboard.writeText(password);
   }, [password]);
 
@@ -37,11 +37,11 @@ function App() {
   return (
     <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 my-8 text-orange-500 bg-blue-800">
       <h1 className="text-white text-center my-4 py-3">Password Generator</h1>
-      <div className='className = "flex shadow rounded-lg overflow-hidden mb-4"'>
+      <div className="flex shadow rounded-lg overflow-hidden mb-4">
         <input
           type="text"
           value={password}
-          className="outline-none w-full py-1 px-3 "
+          className="outline-none w-full py-1 px-3"
           placeholder="password"
           readOnly
           ref={passwordRef}
@@ -62,10 +62,10 @@ function App() {
             value={length}
             className="cursor-pointer"
             onChange={(e) => {
-              setLength(e.target.value);
+              setLength(parseInt(e.target.value));
             }}
           />
-          <label>length: {length}</label>
+          <label>Length: {length}</label>
         </div>
         <div className="flex items-center gap-x-1">
           <input
@@ -87,7 +87,7 @@ function App() {
               setCharAllowed((prev) => !prev);
             }}
           />
-          <label htmlFor="charcterInput">Charcters</label>
+          <label htmlFor="charcterInput">Characters</label>
         </div>
       </div>
     </div>
